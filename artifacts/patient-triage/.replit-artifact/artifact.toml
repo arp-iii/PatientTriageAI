@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "PatientTriage.ai"
+description = "A simulated, explainable emergency-department triage command center with rapid nurse intake, clinician review, queue prioritization, and guided demo workflows."
+version = "1.0.0"
+id = "artifacts/patient-triage"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21747
+
+[services.development]
+run = "pnpm --filter @workspace/patient-triage run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/patient-triage", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/patient-triage/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21747"
+BASE_PATH = "/"

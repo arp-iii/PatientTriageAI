@@ -1,0 +1,276 @@
+Build a production-quality hackathon prototype called **PatientTriage.ai** for **Team Eclipse**—an explainable AI-assisted emergency-department triage platform that helps clinicians prioritize patients faster while keeping humans fully in control.
+
+## Core concept
+
+Create one responsive web application containing two connected interfaces:
+
+1. **Nurse Intake** — a fast tablet/mobile workflow for recording patient demographics, preliminary vitals, symptoms and clinical notes.
+2. **Clinician Command Center** — a real-time desktop dashboard where patients are dynamically ranked by urgency, with transparent AI reasoning and frictionless clinician override.
+
+This is a hackathon prototype, not a medical device. Clearly label all predictions as simulated decision support and never present diagnoses or treatment instructions.
+
+## Technical requirements
+
+Use:
+
+* Next.js App Router with TypeScript
+* Tailwind CSS and shadcn/ui
+* Framer Motion for purposeful animations
+* Recharts for analytics
+* Lucide icons
+* Zod for validation
+
+Do not connect a real database, authentication provider or external AI service. Use realistic seeded data, localStorage persistence and mocked API routes. The application must work completely after installation without API keys.
+
+Build reusable components, strongly typed data models and clean architecture. Ensure `npm run build` passes with no TypeScript errors, placeholder pages, TODOs or broken controls.
+
+## Main routes
+
+### `/`
+
+Create a concise, premium landing screen explaining:
+
+* Faster triage at emergency-department entry
+* Multimodal analysis of symptoms and vitals
+* Explainable prioritization
+* Human-in-the-loop safety
+
+Include:
+
+* “Launch Live Demo”
+* “Open Nurse Intake”
+* “Open Command Center”
+* Five-stage pipeline preview
+* Small “Demo Mode — simulated clinical decision support” notice
+
+Avoid a generic oversized hero. Make the product visible immediately.
+
+### `/intake`
+
+Create a rapid, mobile-first nurse intake flow that can realistically be completed in under 60 seconds.
+
+Collect:
+
+* Patient name and generated patient ID
+* Age, sex and arrival method
+* Heart rate
+* Blood pressure
+* Respiratory rate
+* Temperature
+* Oxygen saturation
+* Level of consciousness
+* Chief complaint
+* Free-text clinical notes
+* Pain score
+* Optional risk factors
+
+Requirements:
+
+* Large touch-friendly controls
+* Inline validation and sensible input ranges
+* Autosave draft state
+* Step progress indicator
+* Clear missing-data warnings
+* “Load Demo Emergency” and “Load Moderate Case” shortcuts
+* Review screen before submission
+* Success state with patient’s provisional queue position
+* Button to immediately open that patient in the clinician dashboard
+
+On submission, display an animated five-stage processing sequence:
+
+1. Patient Arrival & Data Capture
+2. Secure Ingestion & Persistence
+3. Parallel AI Inference
+4. Late Fusion & Explainability
+5. Clinician Review & Override
+
+Simulate processing with short delays and show meaningful activity at each stage instead of a generic spinner.
+
+### `/dashboard`
+
+Build a premium real-time emergency command center.
+
+Top area:
+
+* Live clock
+* Department status
+* Waiting patients
+* Critical patients
+* Median waiting time
+* Capacity indicator
+* Search
+* Filters
+* Nurse/Clinician role switch
+* Light/dark theme
+* “Run Guided Demo” button
+
+Main queue:
+
+* Seed 10–12 realistic fictional patients
+* Sort primarily by calculated acuity and secondarily by waiting time
+* Show queue position, patient ID, initials, age, complaint, arrival time, wait time, vitals summary, AI confidence and triage level
+* Animate rows smoothly when priority changes
+* Highlight newly arrived and deteriorating patients
+* Never rely on color alone; always include text labels and icons
+* Provide filters for acuity, arrival method, waiting time and review status
+* Include empty, loading and error states
+
+Use five clearly named triage levels:
+
+* Level 1 — Immediate
+* Level 2 — Emergent
+* Level 3 — Urgent
+* Level 4 — Less Urgent
+* Level 5 — Non-Urgent
+
+## Patient detail experience
+
+Clicking a patient should open a large drawer or dedicated detail view containing:
+
+* Patient summary
+* Current vitals and mini trend charts
+* Chief complaint and clinical notes
+* AI-generated priority
+* Confidence and uncertainty
+* Missing-information warnings
+* Separate “Text Model” and “Vitals Model” scores
+* Final fusion score
+* Top contributing signals
+* Protective or lower-risk signals
+* Plain-language explanation of why the patient received the score
+* Timestamped processing timeline
+* Queue history
+* Clinician activity log
+
+Create a strong explainability visualization showing the relative influence of symptoms, vitals and waiting-time escalation. Label the model sections honestly as:
+
+* Simulated BioClinicalBERT text analysis
+* Simulated XGBoost vitals analysis
+* Simulated late-fusion engine
+
+Do not claim that real models are running.
+
+## Human override
+
+Allow clinicians to change the triage level with minimal friction.
+
+The override interaction must:
+
+* Require selecting or entering a reason
+* Show the original and updated levels
+* Update the live queue immediately
+* Record the clinician, timestamp and justification
+* Provide an undo option
+* Preserve a visible audit trail
+* Display a success toast
+
+AI recommendations must never silently override a clinician.
+
+## Simulation engine
+
+Create a deterministic local scoring engine so the prototype feels functional rather than hard-coded.
+
+It should:
+
+* Analyze symptom keywords and selected risk factors
+* Score abnormal vitals
+* Account for age and consciousness
+* Apply a confidence penalty when important data is missing
+* Produce separate text and vitals risk scores
+* Combine them into a final fusion score
+* Map the result to triage levels 1–5
+* Generate 3–5 human-readable reasons
+* Support waiting-time escalation
+* Recalculate whenever patient data changes
+
+Add safeguards so incomplete or contradictory data produces “Needs clinician review” instead of a falsely confident result.
+
+Include at least these demo scenarios:
+
+* Chest pain with concerning vitals
+* Severe breathing difficulty
+* Possible stroke presentation
+* High fever with confusion
+* Fracture with stable vitals
+* Abdominal pain
+* Minor laceration
+* Migraine-like symptoms
+* Medication reaction
+* Low-acuity follow-up concern
+
+## Hackathon demo mode
+
+Create a standout one-click guided demonstration lasting approximately 60–90 seconds.
+
+When activated, it should automatically:
+
+1. Open the intake interface.
+2. Populate a high-risk fictional patient.
+3. Submit the patient.
+4. Animate all five pipeline stages.
+5. Switch to the command center.
+6. Insert the patient into the live queue.
+7. Animate the patient moving to a high-priority position.
+8. Open the explainability panel.
+9. Highlight the top contributing signals.
+10. Demonstrate a clinician override and audit entry.
+
+Add concise presenter captions during the sequence and allow pause, resume, skip and restart.
+
+Also provide:
+
+* “Simulate New Arrival”
+* “Simulate Deterioration”
+* “Simulate 5 Arrivals”
+* “Reset Demo Data”
+
+All actions must visibly affect the dashboard.
+
+## Analytics page
+
+Create `/analytics` with demo metrics and polished charts:
+
+* Patients by triage level
+* Average waiting time by acuity
+* AI recommendation versus clinician decision
+* Override rate
+* Processing time
+* Queue movement over time
+* Data completeness
+* High-risk alerts
+
+Clearly label all analytics as simulated.
+
+## Visual direction
+
+The interface should feel like a premium modern clinical operations product: calm, credible, fast and information-dense.
+
+Use:
+
+* Deep navy and slate foundations
+* Medical teal/cyan accents
+* White or soft-grey surfaces
+* Red, orange, yellow, green and blue only for urgency states
+* Strong typography and generous spacing
+* Subtle gradients, shadows and glass effects
+* Smooth micro-interactions
+* Skeleton loaders
+* Clear success, warning and error feedback
+
+Avoid excessive rounded cards, cartoon medical illustrations, random gradients and decorative animations. Urgency must be immediately understandable.
+
+Make the nurse workflow excellent on mobile/tablet and the command center excellent on desktop. Include keyboard navigation, visible focus states, ARIA labels, adequate contrast and reduced-motion support.
+
+## Final polish
+
+* Add a compact architecture/pipeline modal explaining how a real deployment would use React Native, Next.js, NestJS, PostgreSQL, WebSockets, BioClinicalBERT and XGBoost.
+* Include a “Why this decision?” action anywhere an AI score appears.
+* Add tooltips for medical and AI terminology.
+* Persist demo changes across refreshes.
+* Add a reset-data confirmation dialog.
+* Ensure every button performs a real action.
+* Include a concise README with setup commands, architecture and a 90-second presentation script.
+* Use only fictional patient information.
+* Finish the full prototype; do not stop after generating scaffolding.
+
+The result should look and behave like a credible product that judges can interact with immediately—not a static dashboard or collection of mock screens.
